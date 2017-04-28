@@ -106,6 +106,9 @@ func (b *Builder) Run(ui packer.Ui, hook packer.Hook, cache packer.Cache) (packe
 			FloatingIp:     b.config.FloatingIp,
 			ReuseIps:       b.config.ReuseIps,
 		},
+		&StepAttachVolumes{
+			VolumeAttachments: b.config.VolumeAttachments,
+		},
 		&communicator.StepConnect{
 			Config: &b.config.RunConfig.Comm,
 			Host: CommHost(

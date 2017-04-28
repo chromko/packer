@@ -1,6 +1,6 @@
 {
 	"comment": "",
-	"ignore": "test appengine",
+	"ignore": "test",
 	"package": [
 		{
 			"checksumSHA1": "aABATU51PlDHfGeSe5cc9udwSXg=",
@@ -726,6 +726,13 @@
 			"revision": "792786c7400a136282c1664665ae0a8db921c6c2"
 		},
 		{
+			"checksumSHA1": "QbXm7h4qu7+A/D6y40XHN4/QUOg=",
+			"comment": "v1.0.0-810-g53d1dc4",
+			"path": "github.com/rackspace/gophercloud/openstack/compute/v2/extensions/volumeattach",
+			"revision": "e00690e87603abe613e9f02c816c7c4bef82e063",
+			"revisionTime": "2016-10-13T23:24:34Z"
+		},
+		{
 			"checksumSHA1": "TvF3ym5sZVNqGlUOS9HgOIl/sZM=",
 			"path": "github.com/satori/go.uuid",
 			"revision": "d41af8bb6a7704f00bc3b7cba9355ae6a5a80048"
@@ -968,5 +975,5 @@
 			"revision": "860cbeca3ebcc600db0b213c0e83ad6ce91f5739"
 		}
 	],
-	"rootPath": "github.com/hashicorp/packer"
+	"rootPath": "packer-source"
 }
