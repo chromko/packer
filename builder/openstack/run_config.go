@@ -18,19 +18,21 @@ type RunConfig struct {
 	SSHInterface         string              `mapstructure:"ssh_interface"`
 	SSHIPVersion         string              `mapstructure:"ssh_ip_version"`
 
-	SourceImage      string            `mapstructure:"source_image"`
-	SourceImageName  string            `mapstructure:"source_image_name"`
-	Flavor           string            `mapstructure:"flavor"`
-	AvailabilityZone string            `mapstructure:"availability_zone"`
-	RackconnectWait  bool              `mapstructure:"rackconnect_wait"`
-	FloatingIpPool   string            `mapstructure:"floating_ip_pool"`
-	FloatingIp       string            `mapstructure:"floating_ip"`
-	ReuseIps         bool              `mapstructure:"reuse_ips"`
-	SecurityGroups   []string          `mapstructure:"security_groups"`
-	Networks         []string          `mapstructure:"networks"`
-	UserData         string            `mapstructure:"user_data"`
-	UserDataFile     string            `mapstructure:"user_data_file"`
-	InstanceMetadata map[string]string `mapstructure:"instance_metadata"`
+	SourceImage       string            `mapstructure:"source_image"`
+	SourceImageName   string            `mapstructure:"source_image_name"`
+	Flavor            string            `mapstructure:"flavor"`
+	AvailabilityZone  string            `mapstructure:"availability_zone"`
+	RackconnectWait   bool              `mapstructure:"rackconnect_wait"`
+	FloatingIpPool    string            `mapstructure:"floating_ip_pool"`
+	FloatingIp        string            `mapstructure:"floating_ip"`
+	ReuseIps          bool              `mapstructure:"reuse_ips"`
+	SecurityGroups    []string          `mapstructure:"security_groups"`
+	Networks          []string          `mapstructure:"networks"`
+	UserData          string            `mapstructure:"user_data"`
+	UserDataFile      string            `mapstructure:"user_data_file"`
+	InstanceMetadata  map[string]string `mapstructure:"instance_metadata"`
+	VolumeAttachments []string          `mapstructure:"volume_attachments"`
+	BootFromVolume    bool              `mapstructure:"boot_from_volume"`
 
 	ConfigDrive bool `mapstructure:"config_drive"`
 
@@ -65,11 +67,11 @@ func (c *RunConfig) Prepare(ctx *interpolate.Context) []error {
 		}
 	}
 
-	if c.SourceImage == "" && c.SourceImageName == "" {
-		errs = append(errs, errors.New("Either a source_image or a source_image_name must be specified"))
-	} else if len(c.SourceImage) > 0 && len(c.SourceImageName) > 0 {
-		errs = append(errs, errors.New("Only a source_image or a source_image_name can be specified, not both."))
-	}
+	// if c.SourceImage == "" && c.SourceImageName == "" {
+	// 	errs = append(errs, errors.New("Either a source_image or a source_image_name must be specified"))
+	// } else if len(c.SourceImage) > 0 && len(c.SourceImageName) > 0 {
+	// 	errs = append(errs, errors.New("Only a source_image or a source_image_name can be specified, not both."))
+	// }
 
 	if c.Flavor == "" {
 		errs = append(errs, errors.New("A flavor must be specified"))

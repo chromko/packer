@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"log"
 
+	"github.com/gophercloud/gophercloud/openstack/compute/v2/extensions/bootfromvolume"
 	"github.com/gophercloud/gophercloud/openstack/compute/v2/extensions/keypairs"
 	"github.com/gophercloud/gophercloud/openstack/compute/v2/servers"
 	"github.com/hashicorp/packer/packer"
@@ -21,6 +22,7 @@ type StepRunSourceServer struct {
 	UserData         string
 	UserDataFile     string
 	ConfigDrive      bool
+	BootFromVolume   bool
 	InstanceMetadata map[string]string
 	server           *servers.Server
 }
@@ -56,9 +58,9 @@ func (s *StepRunSourceServer) Run(state multistep.StateBag) multistep.StepAction
 	ui.Say("Launching server...")
 
 	serverOpts := servers.CreateOpts{
-		Name:             s.Name,
-		ImageRef:         s.SourceImage,
-		ImageName:        s.SourceImageName,
+		Name: s.Name,
+		//		ImageRef:         s.SourceImage,
+		//		ImageName:        s.SourceImageName,
 		FlavorRef:        flavor,
 		SecurityGroups:   s.SecurityGroups,
 		Networks:         networks,
@@ -79,8 +81,27 @@ func (s *StepRunSourceServer) Run(state multistep.StateBag) multistep.StepAction
 	} else {
 		serverOptsExt = serverOpts
 	}
-
-	s.server, err = servers.Create(computeClient, serverOptsExt).Extract()
+	if s.BootFromVolume {
+		bd := []bootfromvolume.BlockDevice{
+			bootfromvolume.BlockDevice{
+				UUID:                s.SourceImage,
+				SourceType:          bootfromvolume.SourceImage,
+				DestinationType:     bootfromvolume.DestinationVolume,
+				VolumeSize:          5,
+				DeleteOnTermination: true,
+				//VolumeName: "disk-for-testing",
+				//VolumeType: "universal.ru-2a",
+			},
+		}
+		serverOptsExt = bootfromvolume.CreateOptsExt{
+			serverOptsExt,
+			bd,
+		}
+		ui.Say("Boot server from volume")
+		s.server, err = bootfromvolume.Create(computeClient, serverOptsExt).Extract()
+	} else {
+		s.server, err = servers.Create(computeClient, serverOptsExt).Extract()
+	}
 	if err != nil {
 		err := fmt.Errorf("Error launching source server: %s", err)
 		state.Put("error", err)

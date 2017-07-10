@@ -1,6 +1,6 @@
 {
 	"comment": "",
-	"ignore": "test appengine",
+	"ignore": "test",
 	"package": [
 		{
 			"checksumSHA1": "aABATU51PlDHfGeSe5cc9udwSXg=",
@@ -376,6 +376,12 @@
 			"revisionTime": "2016-11-14T18:28:31Z"
 		},
 		{
+			"checksumSHA1": "w2wHF5eEBE89ZYlkS9GAJsSIq9U=",
+			"path": "github.com/gophercloud/gophercloud/openstack/compute/v2/extensions/bootfromvolume",
+			"revision": "9a5595b8ffe429439c63781cdc312c254e4ad990",
+			"revisionTime": "2017-03-13T18:04:29Z"
+		},
+		{
 			"checksumSHA1": "pUlKsepGmWDd4PqPaK4W85pHsRU=",
 			"path": "github.com/gophercloud/gophercloud/openstack/compute/v2/extensions/floatingips",
 			"revision": "d5eda9707e146108e4d424062b602fd97a71c2e6",
@@ -392,6 +398,12 @@
 			"path": "github.com/gophercloud/gophercloud/openstack/compute/v2/extensions/startstop",
 			"revision": "d5eda9707e146108e4d424062b602fd97a71c2e6",
 			"revisionTime": "2016-11-14T18:28:31Z"
+		},
+		{
+			"checksumSHA1": "2VNgU0F9PDax5VKClvMLmbzuksw=",
+			"path": "github.com/gophercloud/gophercloud/openstack/compute/v2/extensions/volumeattach",
+			"revision": "9a5595b8ffe429439c63781cdc312c254e4ad990",
+			"revisionTime": "2017-03-13T18:04:29Z"
 		},
 		{
 			"checksumSHA1": "a9xDFPigDjHlPlthknKlBduGvKY=",

@@ -93,6 +93,7 @@ func (b *Builder) Run(ui packer.Ui, hook packer.Hook, cache packer.Cache) (packe
 			UserDataFile:     b.config.UserDataFile,
 			ConfigDrive:      b.config.ConfigDrive,
 			InstanceMetadata: b.config.InstanceMetadata,
+			BootFromVolume:   b.config.BootFromVolume,
 		},
 		&StepGetPassword{
 			Debug: b.config.PackerDebug,
@@ -106,6 +107,7 @@ func (b *Builder) Run(ui packer.Ui, hook packer.Hook, cache packer.Cache) (packe
 			FloatingIp:     b.config.FloatingIp,
 			ReuseIps:       b.config.ReuseIps,
 		},
+
 		&communicator.StepConnect{
 			Config: &b.config.RunConfig.Comm,
 			Host: CommHost(
@@ -118,7 +120,7 @@ func (b *Builder) Run(ui packer.Ui, hook packer.Hook, cache packer.Cache) (packe
 				b.config.RunConfig.Comm.SSHPassword),
 		},
 		&common.StepProvision{},
-		&StepStopServer{},
+		//	&StepStopServer{},
 		&stepCreateImage{},
 		&stepUpdateImageVisibility{},
 		&stepAddImageMembers{},
